@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.pappydevelopers.jockey.R;
 import com.pappydevelopers.jockey.adapter.HomeAdapter;
 
@@ -27,6 +28,8 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("jokey");
 
         initUI();
     }
@@ -77,7 +80,7 @@ public class HomeScreen extends AppCompatActivity {
                         .build()
         );
         navigationTabBar.setModels(models);
-        navigationTabBar.setViewPager(vpPager, 0);
+        navigationTabBar.setViewPager(vpPager, vpPager.getCurrentItem());
         navigationTabBar.setOnTabBarSelectedIndexListener(new NavigationTabBar.OnTabBarSelectedIndexListener() {
             @Override
             public void onStartTabSelected(final NavigationTabBar.Model model, final int index) {
@@ -118,7 +121,7 @@ public class HomeScreen extends AppCompatActivity {
 
 
         } else {
-
+            initUI();
         }
 
         if (ContextCompat.checkSelfPermission(this,

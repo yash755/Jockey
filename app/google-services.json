@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1001659535922",
+    "firebase_url": "https://jockey-536bd.firebaseio.com",
+    "project_id": "jockey-536bd",
+    "storage_bucket": "jockey-536bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001659535922:android:ea84055cf55c8210",
+        "android_client_info": {
+          "package_name": "com.pappydevelopers.jockey"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1001659535922-ssbo79rubu8n1gvhoa8vvu0irkciub2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACc01qkc1Tqb4kEA9oBqd6D2qlnv0Fpf8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

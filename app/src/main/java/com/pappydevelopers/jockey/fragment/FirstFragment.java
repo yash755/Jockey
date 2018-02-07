@@ -61,8 +61,7 @@ public class FirstFragment extends Fragment {
                         JSONObject jsonObject1 = image_list.getJSONObject(i);
                         imageItems.add("http://" + base_url + '/' +jsonObject1.getString("image_url"));
                     }
-                    System.out.println(imageItems);
-                    gridView.setAdapter(new GridAdapter(getContext(),imageItems));
+                    gridView.setAdapter(new GridAdapter(getContext(),imageItems,1));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

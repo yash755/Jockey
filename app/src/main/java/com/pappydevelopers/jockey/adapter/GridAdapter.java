@@ -23,10 +23,12 @@ public class GridAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     public ImageLoader imageLoader;
     Context context;
+    Integer list_type;
 
-    public GridAdapter(Context context, List x) {
+    public GridAdapter(Context context, List x, Integer list_type) {
         mInflater = LayoutInflater.from(context);
         this.context = context;
+        this.list_type = list_type;
 
         imageLoader = new ImageLoader(context);
 
@@ -64,7 +66,6 @@ public class GridAdapter extends BaseAdapter {
 
         picture = (ImageView) v.getTag(R.id.picture);
         Item item = getItem(i);
-        System.out.println(item.name);
         //imageLoader.DisplayImage(item.name, picture);
         Picasso.with(context).load(item.name).into(picture);
 
@@ -74,6 +75,7 @@ public class GridAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, ImagePreview.class);
                 intent.putExtra("position",String.valueOf(i));
                 intent.putExtra("imagelist", (ArrayList<String>) imageItems);
+                intent.putExtra("type",list_type);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
