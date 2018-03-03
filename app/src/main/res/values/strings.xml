@@ -1,9 +1,20 @@
 <resources>
-    <string name="app_name">Jockey</string>
+    <string name="app_name">Extreme Sarcasm</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_home_screen">HomeScreen</string>
 
-    <string name="send_to">Jockey</string>
+    <string name="send_to">Extreme Sarcasm</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="ad_id">ca-app-pub-1488849187979139~6066039468</string>
+    <string name="banner_ad">ca-app-pub-1488849187979139/5006316651</string>
+    <string name="int_ad">ca-app-pub-1488849187979139/3028812583</string>
+
+<!--    <string name="ad_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="reward_ad">ca-app-pub-3940256099942544/5224354917</string>
+    <string name="int_ad">ca-app-pub-3940256099942544/1033173712</string>-->
+
 </resources>

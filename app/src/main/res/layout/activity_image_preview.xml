@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/imageLayout"
-    tools:context="com.pappydevelopers.sarcasmfun.activity.ImagePreview">
+    tools:context="com.pappydevelopers.extremesarcasm.activity.ImagePreview">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,13 +22,33 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.v4.view.ViewPager
         android:id="@+id/image"
         android:background="#423752"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom">
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad">
+        </com.google.android.gms.ads.AdView>
+    </LinearLayout>
+    </FrameLayout>
 
 
 </LinearLayout>
