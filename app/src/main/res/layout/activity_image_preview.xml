@@ -24,13 +24,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:background="#423752"
         android:layout_height="match_parent">
     <android.support.v4.view.ViewPager
         android:id="@+id/image"
-        android:background="#423752"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_marginBottom="35dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <LinearLayout
