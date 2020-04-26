@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">X Sarcasm</string>
+    <string name="app_name">Extreme Sarcasm</string>
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -8,13 +8,23 @@
     <string name="send_to">Extreme Sarcasm</string>
     <string name="title_activity_settings">Settings</string>
 
-    <string name="ad_id">ca-app-pub-1488849187979139~6066039468</string>
-    <string name="banner_ad">ca-app-pub-1488849187979139/5006316651</string>
-    <string name="int_ad">ca-app-pub-1488849187979139/3028812583</string>
+    <string name="ad_id">ca-app-pub-1488849187979139~8700209104</string>
+    <string name="banner_ad">ca-app-pub-1488849187979139/9821719083</string>
+    <string name="int_ad">ca-app-pub-1488849187979139/7195555749</string>
+     <string name="ad_unit_id">ca-app-pub-1488849187979139/4377820716</string>
 
 <!--    <string name="ad_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="banner_ad">ca-app-pub-3940256099942544/6300978111</string>
     <string name="reward_ad">ca-app-pub-3940256099942544/5224354917</string>
-    <string name="int_ad">ca-app-pub-3940256099942544/1033173712</string>-->
+    <string name="int_ad">ca-app-pub-3940256099942544/1033173712</string>
+
+    <string name="ad_unit_id">ca-app-pub-3940256099942544/8135179316</string>-->
+
+
+    <string name="download_permission"> You have to give permission to download image.</string>
+    <string name="internet_error">No Internet Connection !!</string>
+    <string name="image_error">Swipe to view other images !!</string>
+    <string name="title_activity_main_screen">MainScreen</string>
+
 
 </resources>

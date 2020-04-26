@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#605271</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#011627</color>
+    <color name="colorPrimaryDark">#55dde0</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
+
+    <color name="galleryBottomColor">#33658a</color>
+    <color name="favouriteBottomColor">#e71d36</color>
+    <color name="aboutBottomColor">#ff9f1c</color>
+
+
 
 
     <color name="black_overlay">#66000000</color>

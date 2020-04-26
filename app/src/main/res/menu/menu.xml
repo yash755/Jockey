@@ -4,32 +4,30 @@
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
         android:id="@+id/action_favorite"
-        android:icon="@drawable/favourite"
+        android:icon="@drawable/bookmark"
         android:title="Favourite"
         android:tooltipText="Add to favourite"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_download"
-        android:icon="@drawable/download"
+        android:icon="@drawable/download_icon"
         android:title="Download"
         app:showAsAction="always"/>
     <item
         android:id="@+id/action_share"
-        android:icon="@drawable/share"
+        android:icon="@drawable/share_icon"
         android:title="Share"
         app:showAsAction="always"/>
 
     <!-- Settings, should always be in the overflow -->
-<!--    <item android:id="@+id/rate_app"
-        android:title="Rate App"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/share_app"
-        android:title="Share App"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/about_us"
-        android:title="About Us"
-        app:showAsAction="never"/>-->
+    <!--    <item android:id="@+id/rate_app"
+            android:title="Rate App"
+            app:showAsAction="never"/>
+        <item android:id="@+id/share_app"
+            android:title="Share App"
+            app:showAsAction="never"/>
+        <item android:id="@+id/about_us"
+            android:title="About Us"
+            app:showAsAction="never"/>-->
 
 </menu>

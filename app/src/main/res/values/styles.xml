@@ -36,6 +36,7 @@
         <item name="DialogSpotCount">4</item>
         <item name="android:windowBackground">@color/colorWhite</item>
     </style>
+
     <style name="Custom1" parent="android:Theme.DeviceDefault.Light.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Resolving…</item>
@@ -43,12 +44,20 @@
         <item name="DialogSpotCount">4</item>
         <item name="android:windowBackground">@color/colorWhite</item>
     </style>
+
     <style name="Custom2" parent="android:Theme.DeviceDefault.Light.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Sharing…</item>
         <item name="DialogSpotColor">@color/colorAccent</item>
         <item name="DialogSpotCount">4</item>
         <item name="android:windowBackground">@color/colorWhite</item>
+    </style>
+
+    <style name="Custom" parent="android:Theme.DeviceDefault.Light.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Fetching…</item>
+        <item name="DialogSpotColor">@color/colorAccent</item>
+        <item name="DialogSpotCount">4</item>
     </style>
 
 </resources>

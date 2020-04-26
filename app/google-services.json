@@ -1,39 +1,37 @@
 {
   "project_info": {
-    "project_number": "1001659535922",
-    "firebase_url": "https://jockey-536bd.firebaseio.com",
-    "project_id": "jockey-536bd",
-    "storage_bucket": "jockey-536bd.appspot.com"
+    "project_number": "233523033684",
+    "firebase_url": "https://xsarcasm-7746a.firebaseio.com",
+    "project_id": "xsarcasm-7746a",
+    "storage_bucket": "xsarcasm-7746a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1001659535922:android:ea84055cf55c8210",
+        "mobilesdk_app_id": "1:233523033684:android:6dc366e904eac471515fc1",
         "android_client_info": {
-          "package_name": "com.pappydevelopers.extremesarcasm"
+          "package_name": "com.gappydevelopers.xsarcasm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1001659535922-ssbo79rubu8n1gvhoa8vvu0irkciub2u.apps.googleusercontent.com",
+          "client_id": "233523033684-i4a732694k0ldcpo9gubvd0q6dfuqs7o.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyACc01qkc1Tqb4kEA9oBqd6D2qlnv0Fpf8"
+          "current_key": "AIzaSyCmZ30xhIYay-f9WjR4Fm_YvkuaGXm03FI"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233523033684-i4a732694k0ldcpo9gubvd0q6dfuqs7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
