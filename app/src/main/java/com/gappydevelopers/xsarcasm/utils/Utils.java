@@ -24,14 +24,14 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.gappydevelopers.xsarcasm.helper.GetJSONObject;
 import com.google.android.material.snackbar.Snackbar;
 import com.gappydevelopers.xsarcasm.R;
 import com.gappydevelopers.xsarcasm.helper.GetJSONArray;
 
 import org.json.JSONArray;
-
-import dmax.dialog.SpotsDialog;
 
 /**
  * Created by yash on 2/11/17.
@@ -64,7 +64,7 @@ public class Utils {
     public void getAllList(final Context context, final GetJSONArray getResult){
        // final AlertDialog dialog = new SpotsDialog.Builder().setContext(context).setTheme(R.style.Custom).build();
        // dialog.show();
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.POST, "https://gappydevelopers.com/sarcasm.php", null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, "https://gappydevelopers.com/sarcasm.php", null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
          //       dialog.hide();
@@ -108,5 +108,6 @@ public class Utils {
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(jsonObjectRequest);
     }
+
 
 }

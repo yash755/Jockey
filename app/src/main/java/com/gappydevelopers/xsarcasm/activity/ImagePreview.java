@@ -2,6 +2,7 @@ package com.gappydevelopers.xsarcasm.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,10 +13,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
 
 import com.gappydevelopers.xsarcasm.adapter.ImageAdapter;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
@@ -29,10 +32,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
+import dmax.dialog.SpotsDialog;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,7 +61,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import dmax.dialog.SpotsDialog;
+
 
 public class ImagePreview extends AppCompatActivity {
 
@@ -72,9 +77,15 @@ public class ImagePreview extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private AdView mAdView;
     ImageAdapter imageAdapter;
+    TextView dataCount;
+    ImageView fav, share, backPress;
+    Integer totalSize;
+    Button downloadNow;
+    Boolean favList = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_preview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -84,9 +95,16 @@ public class ImagePreview extends AppCompatActivity {
 
         linearLayout = (LinearLayout) findViewById(R.id.imageLayout);
 
+        dataCount = (TextView) findViewById(R.id.countList);
+
+        fav = toolbar.findViewById(R.id.fav);
+        backPress = (ImageView) toolbar.findViewById(R.id.back_press);
+        share = toolbar.findViewById(R.id.share);
+
+        downloadNow = findViewById(R.id.download_image);
 
 //            mAdView = findViewById(R.id.adView);
-            MobileAds.initialize(this, getString(R.string.ad_id));
+        MobileAds.initialize(this, getString(R.string.ad_id));
 //            AdRequest adRequest = new AdRequest.Builder().build();
 //            mAdView.loadAd(adRequest);
 //            mAdView.setAdListener(new AdListener() {
@@ -101,43 +119,120 @@ public class ImagePreview extends AppCompatActivity {
 //                }
 //            });
 //
-            mInterstitialAd = new InterstitialAd(this);
-            mInterstitialAd.setAdUnitId(getString(R.string.int_ad));
-            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        fetchAd();
 
-        final String[] colors = getResources().getStringArray(R.array.default_preview);
 
         dataBaseHelper = new DataBaseHelper(this);
 
         if (getIntent().hasExtra("imagelist")) {
             imageItems = getIntent().getStringArrayListExtra("imagelist");
             position = getIntent().getStringExtra("position");
-            /*list_type = getIntent().getIntExtra("type", 0);*/
-
-         /*   if (list_type == 1) {
-                setTitle("Jockey");
-            } else if (list_type == 2) {
-                setTitle("My Favourites");
-            }*/
+            totalSize = imageItems.size();
 
         }
+
+
 
         imageAdapter = new ImageAdapter(this, imageItems);
         viewPager = (ViewPager) findViewById(R.id.image);
         viewPager.setAdapter(imageAdapter);
         viewPager.setCurrentItem(Integer.parseInt(position));
-     /*   viewPager.setPageTransformer(true, new TabletTransformer());*/
+        /*   viewPager.setPageTransformer(true, new TabletTransformer());*/
+
+
+
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                String val = (position + 1)  + "/" + totalSize;
+
+                dataCount.setText(val);
+
+                if ((position+1)%5 == 0) {
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                        loadAd();
+                    } else {
+                        fetchAd();
+                    }
+                }
+
+            }
+
+            public void onPageSelected(int position) {
+                // Check if this is the page you want.
+            }
+        });
+
+
+
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer currentItem = viewPager.getCurrentItem();
+                addFavourite(getIntent().getStringArrayListExtra("imagelist").get(currentItem));
+
+            }
+        });
+
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+             //   finish();
+            }
+        });
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer currentItem1 = viewPager.getCurrentItem();
+                sharePic(getIntent().getStringArrayListExtra("imagelist").get(currentItem1));
+            }
+        });
+
+
+        downloadNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer currentItem2 = viewPager.getCurrentItem();
+                downloadPic(getIntent().getStringArrayListExtra("imagelist").get(currentItem2));
+            }
+        });
+
 
 
     }
 
-    @Override
+
+    void showDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.message_dialog);
+        dialog.show();
+
+        Button btn = dialog.findViewById(R.id.ok_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+
+
+
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-    }
+    }*/
 
-    @Override
+/*    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_favorite:
@@ -156,7 +251,7 @@ public class ImagePreview extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
-    }
+    }*/
 
     public void checkPermission(int flag) {
         userLocalStore.setFlag(flag);
@@ -171,6 +266,7 @@ public class ImagePreview extends AppCompatActivity {
         } else {
 
             System.out.println("Dialog Show 1");
+
             dialog = new SpotsDialog.Builder().setContext(this).setTheme(R.style.Custom).build();
             //dialog = new SpotsDialog(this, R.style.Custom1);
             dialog.show();
@@ -186,7 +282,7 @@ public class ImagePreview extends AppCompatActivity {
         File f = new File(filepath + "/" + split[split.length -1]);
         System.out.println("File" + f);
         if (f.exists()) {
-            Toast.makeText(getApplicationContext(), "File already downloaded...", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "File already downloaded...", Toast.LENGTH_SHORT).show();
         } else {
             checkPermission(0);
         }
@@ -231,7 +327,7 @@ public class ImagePreview extends AppCompatActivity {
                         mInterstitialAd.show();
                     }
                 }
-                Toast.makeText(getApplicationContext(), "Downloaded in files...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Downloaded in files...", Toast.LENGTH_SHORT).show();
             } else if (flag == 1) {
                 Integer currentItem1 = viewPager.getCurrentItem();
                 String[] split = getIntent().getStringArrayListExtra("imagelist").get(currentItem1).split("/");
@@ -280,9 +376,9 @@ public class ImagePreview extends AppCompatActivity {
                 if (!file.exists()) {
                     file.createNewFile();
                 }
-   //             FileOutputStream fileOutput = new FileOutputStream(file);
-  //              InputStream inputStream = urlConnection.getInputStream();
-   //             byte[] buffer = new byte[1024];
+                //             FileOutputStream fileOutput = new FileOutputStream(file);
+                //              InputStream inputStream = urlConnection.getInputStream();
+                //             byte[] buffer = new byte[1024];
 //                int bufferLength = 0; // used to store a temporary size of the
 //                // buffer
 //                while ((bufferLength = inputStream.read(buffer)) > 0) {
@@ -358,22 +454,25 @@ public class ImagePreview extends AppCompatActivity {
         super.onResume();
         imageItems = new ArrayList<String>();
 
+
+
         userLocalStore = new UserLocalStore(this);
 
         if (!userLocalStore.getuserloggedIn()) {
-            Snackbar snackbar = Snackbar
-                    .make(findViewById(R.id.imageLayout), "Swipe to view other images", Snackbar.LENGTH_LONG);
+            /*Snackbar snackbar = Snackbar
+                    .make(findViewById(R.id.imageLayout), "Swipe to view other images", Snackbar.LENGTH_SHORT);
             View sbView = snackbar.getView();
             TextView textView = (TextView) sbView.findViewById(com.google.android.material.R.id.snackbar_text);
             textView.setTextColor(Color.YELLOW);
             snackbar.show();
-
+*/
+            showDialog();
             userLocalStore.setUserloggedIn(true);
         }
 
         if (!new Utils().check_connection(ImagePreview.this)) {
             Snackbar snackbar = Snackbar
-                    .make(findViewById(R.id.imageLayout), "No internet connection!", Snackbar.LENGTH_LONG);
+                    .make(findViewById(R.id.imageLayout), "No internet connection!", Snackbar.LENGTH_SHORT);
             snackbar.setActionTextColor(Color.RED);
 
             View sbView = snackbar.getView();
@@ -389,8 +488,8 @@ public class ImagePreview extends AppCompatActivity {
     public void onBackPressed() {
         // code here to show dialog
         super.onBackPressed();  // optional depending on your needs
-        Intent i = new Intent(ImagePreview.this, MainScreen.class);
-        startActivity(i);
+            finish();
+
     }
 
     public void sharingPic(File f) {
@@ -436,7 +535,7 @@ public class ImagePreview extends AppCompatActivity {
                         boolean showRationale = shouldShowRequestPermissionRationale(permissions[0]);
                         if (!showRationale) {
                             Snackbar snackbar = Snackbar
-                                    .make(findViewById(R.id.imageLayout), "Enable permission to download image.", Snackbar.LENGTH_LONG)
+                                    .make(findViewById(R.id.imageLayout), "Enable permission to download image.", Snackbar.LENGTH_SHORT)
                                     .setAction("Go to settings", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
@@ -463,5 +562,50 @@ public class ImagePreview extends AppCompatActivity {
             // other 'case' lines to check for other
             // permissions this app might request.
         }
+    }
+
+
+    public void fetchAd() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.int_ad));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+    }
+
+
+    public void loadAd() {
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the interstitial ad is closed.
+                mInterstitialAd = new InterstitialAd(getApplicationContext());
+                mInterstitialAd.setAdUnitId(getString(R.string.int_ad));
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
     }
 }

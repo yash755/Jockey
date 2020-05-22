@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:id="@+id/imageLayout"
     tools:context="com.gappydevelopers.xsarcasm.activity.ImagePreview">
 
@@ -18,23 +19,84 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimaryDark"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <include layout="@layout/image_toolbar" />
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="match_parent">
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/image"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#FFFFFF">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="20/30"
+            android:id="@+id/countList"
+            android:gravity="end"
+            android:fontFamily="@font/manrope_medium"
+            android:textSize="13sp"
+            android:paddingRight="20dp"
+            android:paddingTop="11dp"
+            android:textColor="#000000"
+            />
+
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:id="@+id/scroll_id"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="70dp">
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"/>
 
 
-    </FrameLayout>
+        </FrameLayout>
+
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="20dp"
+            android:background="#FFFFFF"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_marginLeft="57dp"
+                android:layout_marginRight="57dp"
+                android:text="Download"
+                android:textSize="16dp"
+                android:id="@+id/download_image"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="@font/manrope_medium"
+                android:layout_height="wrap_content" />
+
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
 
 
 </LinearLayout>

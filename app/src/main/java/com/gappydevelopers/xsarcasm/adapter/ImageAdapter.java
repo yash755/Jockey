@@ -2,6 +2,7 @@ package com.gappydevelopers.xsarcasm.adapter;
 
 import android.content.Context;
 
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.gappydevelopers.xsarcasm.R;
+import com.gappydevelopers.xsarcasm.utils.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -58,6 +60,18 @@ public class ImageAdapter extends PagerAdapter {
         
 
         container.addView(itemView);
+
+
+        /*DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+        int heightPixels = metrics.heightPixels;
+        int widthPixels = metrics.widthPixels;
+        float xdpi = metrics.xdpi;
+        float ydpi = metrics.ydpi;
+
+        int final_width = (int) (0.5 * widthPixels);
+
+        menuItemHolder.menuItemImage.getLayoutParams().width =  final_width;
+        menuItemHolder.menuItemImage.getLayoutParams().height = final_width;*/
 
         return itemView;
     }

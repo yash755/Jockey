@@ -56,7 +56,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
-import dmax.dialog.SpotsDialog;
+
 
 /**
  * The {@link RecyclerViewAdapter} class.
@@ -95,7 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * The {@link MenuItemViewHolder} class.
      * Provides a reference to each view in the menu item view.
      */
-    public class MenuItemViewHolder extends RecyclerView.ViewHolder {
+    public static class MenuItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView menuItemImage, dBookmark, dInfo;
 
         MenuItemViewHolder(View view) {

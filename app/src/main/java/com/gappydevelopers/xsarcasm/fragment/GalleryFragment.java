@@ -2,19 +2,25 @@ package com.gappydevelopers.xsarcasm.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import dmax.dialog.SpotsDialog;
 
+
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.gappydevelopers.xsarcasm.databasehelper.DataBaseHelper;
 import com.gappydevelopers.xsarcasm.helper.MasterData;
@@ -32,6 +38,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,8 +105,7 @@ public class GalleryFragment extends Fragment {
         mRecyclerViewItems = new ArrayList<>();
         imageItems = new ArrayList<>();
 
-        dialog = new SpotsDialog.Builder().setContext(context).setTheme(R.style.Custom).build();
-        dialog.show();
+
         new Utils().getAllList(getContext(), new GetJSONArray() {
             @Override
             public void done(JSONArray jsonArray) {
@@ -159,7 +173,7 @@ public class GalleryFragment extends Fragment {
 
                                 adapter = new RecyclerViewAdapter(context, mRecyclerViewItems, imageItems, 0);
                                 mRecyclerView.setAdapter(adapter);
-                                dialog.dismiss();
+
                             }
 
 
@@ -181,7 +195,7 @@ public class GalleryFragment extends Fragment {
 
                             adapter = new RecyclerViewAdapter(context, mRecyclerViewItems, imageItems, 0);
                             mRecyclerView.setAdapter(adapter);
-                            dialog.dismiss();
+
                         }
                     }
                 }).build();
@@ -190,4 +204,45 @@ public class GalleryFragment extends Fragment {
         adLoader.loadAds(new AdRequest.Builder().build(), NUMBER_OF_ADS);
     }
 
+
+
+   /* class DownloadImageAsyncTask extends AsyncTask<Void, Void, List<Object>> {
+
+        public DownloadImageAsyncTask() {
+        }
+
+        @Override
+        protected List<Object> doInBackground(Void... params) {
+
+            URL imageUrl; //your URL from which image to be downloaded
+            String domain;
+            int count;
+            try {
+
+
+                URLConnection urlConnection;
+                try {
+                    System.out.println("Demo");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+
+        }
+
+        @Override
+        protected List<Object> onPostExecute(List<Object> result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            dialog.dismiss();
+        }
+
+    }
+*/
 }

@@ -11,6 +11,8 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="FullscreenTheme" parent="AppTheme">
@@ -29,21 +31,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Custom0" parent="android:Theme.DeviceDefault.Light.Dialog">
-        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
-        <item name="DialogTitleText">Fetching Data…</item>
-        <item name="DialogSpotColor">@color/colorAccent</item>
-        <item name="DialogSpotCount">4</item>
-        <item name="android:windowBackground">@color/colorWhite</item>
-    </style>
 
-    <style name="Custom1" parent="android:Theme.DeviceDefault.Light.Dialog">
-        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
-        <item name="DialogTitleText">Resolving…</item>
-        <item name="DialogSpotColor">@color/colorAccent</item>
-        <item name="DialogSpotCount">4</item>
-        <item name="android:windowBackground">@color/colorWhite</item>
-    </style>
 
     <style name="Custom2" parent="android:Theme.DeviceDefault.Light.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
@@ -58,6 +46,13 @@
         <item name="DialogTitleText">Fetching…</item>
         <item name="DialogSpotColor">@color/colorAccent</item>
         <item name="DialogSpotCount">4</item>
+    </style>
+
+
+    <style name="MenuStyle">
+        <item name="android:textColor">#F0F</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
 </resources>
