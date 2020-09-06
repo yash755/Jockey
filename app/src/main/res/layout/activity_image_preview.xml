@@ -88,15 +88,8 @@
                 android:fontFamily="@font/manrope_medium"
                 android:layout_height="wrap_content" />
 
-
-
         </RelativeLayout>
 
-
     </RelativeLayout>
-
-
-
-
 
 </LinearLayout>

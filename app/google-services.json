@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "595636268801",
-    "firebase_url": "https://extreme-sarcasm-7368e.firebaseio.com",
-    "project_id": "extreme-sarcasm-7368e",
-    "storage_bucket": "extreme-sarcasm-7368e.appspot.com"
+    "project_number": "575387590511",
+    "firebase_url": "https://extreme-sarcasm-7677c.firebaseio.com",
+    "project_id": "extreme-sarcasm-7677c",
+    "storage_bucket": "extreme-sarcasm-7677c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:595636268801:android:7636433a628105a2bdf500",
+        "mobilesdk_app_id": "1:575387590511:android:77b6f2e3f9cf18dfa7529a",
         "android_client_info": {
           "package_name": "com.gappydevelopers.xsarcasm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "595636268801-mvu218hben7hgbe1sq3uraf6ks18jvel.apps.googleusercontent.com",
+          "client_id": "575387590511-bpfg5a3i6hcre39gg15341ou4dg9tfac.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyASzbYJy5ifiwPmjl1KOLCl5U2Mblmjc-U"
+          "current_key": "AIzaSyBbs8BgemmKj-6fNdi307HDdRNnt-s36kc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "595636268801-mvu218hben7hgbe1sq3uraf6ks18jvel.apps.googleusercontent.com",
+              "client_id": "575387590511-bpfg5a3i6hcre39gg15341ou4dg9tfac.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -15,11 +15,12 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:paddingLeft="10dp"
+            android:layout_width="22dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:id="@+id/about_back_press"
-            android:src="@drawable/arrows" />
+            android:src="@drawable/arrows"
+            android:contentDescription="TODO" />
 
 
         <TextView

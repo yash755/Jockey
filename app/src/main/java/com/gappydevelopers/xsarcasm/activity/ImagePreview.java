@@ -13,14 +13,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
 
 import com.gappydevelopers.xsarcasm.adapter.ImageAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.core.app.ActivityCompat;
@@ -103,22 +101,6 @@ public class ImagePreview extends AppCompatActivity {
 
         downloadNow = findViewById(R.id.download_image);
 
-//            mAdView = findViewById(R.id.adView);
-        MobileAds.initialize(this, getString(R.string.ad_id));
-//            AdRequest adRequest = new AdRequest.Builder().build();
-//            mAdView.loadAd(adRequest);
-//            mAdView.setAdListener(new AdListener() {
-//                @Override
-//                public void onAdLoaded() {
-//                    System.out.println("Hello I am ad");
-//                }
-//
-//                @Override
-//                public void onAdFailedToLoad(int errorCode) {
-//                    System.out.println("Hello I amwklwjwqwqjljwqjwqjw ad");
-//                }
-//            });
-//
         fetchAd();
 
 
@@ -150,7 +132,7 @@ public class ImagePreview extends AppCompatActivity {
 
                 dataCount.setText(val);
 
-                if ((position+1)%5 == 0) {
+                if ((position+1)%10 == 0) {
                     if (mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
                         loadAd();
@@ -278,7 +260,13 @@ public class ImagePreview extends AppCompatActivity {
 
     private void downloadPic(String image_url) {
         String[] split = image_url.split("/");
-        File filepath = Environment.getExternalStorageDirectory();
+        //File filepath = Environment.getExternalStorageDirectory();
+        File filepath;
+        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.P) {
+            filepath = Environment.getExternalStorageDirectory();
+        } else {
+            filepath = getApplicationContext().getExternalFilesDir(null);
+        }
         File f = new File(filepath + "/" + split[split.length -1]);
         System.out.println("File" + f);
         if (f.exists()) {
@@ -290,7 +278,13 @@ public class ImagePreview extends AppCompatActivity {
 
     private void sharePic(String image_url) {
         String[] split = image_url.split("/");
-        File filepath = Environment.getExternalStorageDirectory();
+        //File filepath = Environment.getExternalStorageDirectory();
+        File filepath;
+        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.P) {
+            filepath = Environment.getExternalStorageDirectory();
+        } else {
+            filepath = getApplicationContext().getExternalFilesDir(null);
+        }
         File f = new File(filepath + "/" + split[split.length -1]);
         System.out.println("File" + f);
         if (f.exists()) {
@@ -331,7 +325,14 @@ public class ImagePreview extends AppCompatActivity {
             } else if (flag == 1) {
                 Integer currentItem1 = viewPager.getCurrentItem();
                 String[] split = getIntent().getStringArrayListExtra("imagelist").get(currentItem1).split("/");
-                File filepath = Environment.getExternalStorageDirectory();
+                //File filepath = Environment.getExternalStorageDirectory();
+
+                File filepath;
+                if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.P) {
+                    filepath = Environment.getExternalStorageDirectory();
+                } else {
+                    filepath = getApplicationContext().getExternalFilesDir(null);
+                }
                 File f = new File(filepath + "/"  + split[split.length -1 ]);
                 if (f.exists()) {
                     sharingPic(f);
@@ -363,7 +364,15 @@ public class ImagePreview extends AppCompatActivity {
 
                 int lenghtOfFile = urlConnection.getContentLength();
 
-                File filepath = Environment.getExternalStorageDirectory();
+                //File filepath = Environment.getExternalStorageDirectory();
+
+                File filepath;
+                if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.P) {
+                    filepath = Environment.getExternalStorageDirectory();
+                } else {
+                    filepath = getApplicationContext().getExternalFilesDir(null);
+                }
+
                 File f = new File(filepath.getAbsolutePath());
 
                 if (!f.exists()) {
@@ -420,7 +429,7 @@ public class ImagePreview extends AppCompatActivity {
 
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), bmOptions);
-                /*  bitmap = Bitmap.createScaledBitmap(bitmap,parent.getWidth(),parent.getHeight(),true);*/
+
                 MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Jockey", "Jockey");
 
 
@@ -459,18 +468,11 @@ public class ImagePreview extends AppCompatActivity {
         userLocalStore = new UserLocalStore(this);
 
         if (!userLocalStore.getuserloggedIn()) {
-            /*Snackbar snackbar = Snackbar
-                    .make(findViewById(R.id.imageLayout), "Swipe to view other images", Snackbar.LENGTH_SHORT);
-            View sbView = snackbar.getView();
-            TextView textView = (TextView) sbView.findViewById(com.google.android.material.R.id.snackbar_text);
-            textView.setTextColor(Color.YELLOW);
-            snackbar.show();
-*/
             showDialog();
             userLocalStore.setUserloggedIn(true);
         }
 
-        if (!new Utils().check_connection(ImagePreview.this)) {
+        if (new Utils().checkConnection(ImagePreview.this)) {
             Snackbar snackbar = Snackbar
                     .make(findViewById(R.id.imageLayout), "No internet connection!", Snackbar.LENGTH_SHORT);
             snackbar.setActionTextColor(Color.RED);

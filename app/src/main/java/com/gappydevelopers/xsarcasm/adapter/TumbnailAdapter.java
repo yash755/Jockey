@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.gappydevelopers.xsarcasm.R;
 import com.gappydevelopers.xsarcasm.activity.ImagePreview;
 import com.gappydevelopers.xsarcasm.databasehelper.DataBaseHelper;
+import com.gappydevelopers.xsarcasm.helper.HomeMasterData;
 import com.gappydevelopers.xsarcasm.helper.MasterData;
 import com.gappydevelopers.xsarcasm.sharedprefrence.UserLocalStore;
 import com.gappydevelopers.xsarcasm.utils.CircleTransform;
@@ -43,12 +44,14 @@ public class TumbnailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private final Context mContext;
     private final List<Object> mRecyclerViewItems;
+    private List<String> imageItems;
 
 
 
-    public TumbnailAdapter(Context context, List<Object> recyclerViewItems) {
+    public TumbnailAdapter(Context context, List<Object> recyclerViewItems, List<String> imageItems) {
         this.mContext = context;
         this.mRecyclerViewItems = recyclerViewItems;
+        this.imageItems = imageItems;
 
     }
 
@@ -93,7 +96,7 @@ public class TumbnailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final TumbnailAdapter.MenuItemViewHolder menuItemHolder = (TumbnailAdapter.MenuItemViewHolder) holder;
-        final MasterData masterData = (MasterData) mRecyclerViewItems.get(position);
+        final HomeMasterData masterData = (HomeMasterData) mRecyclerViewItems.get(position);
 
         // Get the menu item image resource ID.
         String imageName = masterData.getImageName();
@@ -117,10 +120,8 @@ public class TumbnailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         menuItemHolder.menuItemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<String> imageItems = new ArrayList<>();
-                imageItems.add(masterData.getImageName());
                 Intent intent = new Intent(mContext, ImagePreview.class);
-                intent.putExtra("position","0");
+                intent.putExtra("position",Integer.toString(masterData.getPosition()));
                 intent.putExtra("imagelist", (ArrayList<String>) imageItems);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);

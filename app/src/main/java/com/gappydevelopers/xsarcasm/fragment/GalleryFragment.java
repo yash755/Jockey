@@ -105,7 +105,7 @@ public class GalleryFragment extends Fragment {
         mRecyclerViewItems = new ArrayList<>();
         imageItems = new ArrayList<>();
 
-
+/*
         new Utils().getAllList(getContext(), new GetJSONArray() {
             @Override
             public void done(JSONArray jsonArray) {
@@ -125,16 +125,16 @@ public class GalleryFragment extends Fragment {
                     }
                 }
 
-/*                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+*//*                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                 mRecyclerView.setLayoutManager(layoutManager);
                 adapter = new RecyclerViewAdapter(context, mRecyclerViewItems, imageItems);
                 mRecyclerView.setAdapter(adapter);
-                dialog.dismiss();*/
+                dialog.dismiss();*//*
                 loadNativeAds();
 
 
             }
-        });
+        });*/
 
 
 

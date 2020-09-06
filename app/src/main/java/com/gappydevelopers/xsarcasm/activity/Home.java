@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.gappydevelopers.xsarcasm.R;
 import com.gappydevelopers.xsarcasm.adapter.TumbnailAdapter;
 import com.gappydevelopers.xsarcasm.helper.GetJSONArray;
+import com.gappydevelopers.xsarcasm.helper.GetJSONObject;
+import com.gappydevelopers.xsarcasm.helper.HomeMasterData;
 import com.gappydevelopers.xsarcasm.helper.MasterData;
 import com.gappydevelopers.xsarcasm.utils.Utils;
 import com.google.android.gms.ads.AdRequest;
@@ -37,6 +39,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -150,9 +153,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
 
 
+
         getData();
-
-
+        subscribeToTopic();
 
 
 
@@ -172,35 +175,35 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         //dialog.show();
 
 
-        new Utils().getAllList(this, new GetJSONArray() {
+        new Utils().getAllList(this, new GetJSONObject() {
             @Override
-            public void done(JSONArray jsonArray) {
-                if (jsonArray != null) {
-                    System.out.println("Response" + jsonArray);
+            public void done(JSONObject jsonObject) {
+                try {
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         try {
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            String image = "https://gappydevelopers.com/thumbnail/" + jsonObject1.getString("pic_url");
-                            image = image.replace("\\", "");
+                            imageItems.add(jsonObject1.getString("main_url"));
 
                             if (i < 5) {
-                                mRecyclerViewItems.add(new MasterData(image));
+                                mRecyclerViewItems.add(new HomeMasterData(jsonObject1.getString("main_url"), i));
                             }
 
                             if (i > 5 && i <= 10) {
-                                mRecyclerViewItems1.add(new MasterData(image));
+                                mRecyclerViewItems1.add(new HomeMasterData(jsonObject1.getString("main_url"), i));
                             }
-
-                            imageItems.add(image);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
 
                     setUI();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
 
 
             }
@@ -222,10 +225,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         mRecyclerView1.setLayoutManager(layoutManager1);
 
 
-        tumbnailAdapter = new TumbnailAdapter(this, mRecyclerViewItems);
+        tumbnailAdapter = new TumbnailAdapter(this, mRecyclerViewItems, imageItems);
         mRecyclerView.setAdapter(tumbnailAdapter);
 
-        tumbnailAdapter1 = new TumbnailAdapter(this, mRecyclerViewItems1);
+        tumbnailAdapter1 = new TumbnailAdapter(this, mRecyclerViewItems1, imageItems);
         mRecyclerView1.setAdapter(tumbnailAdapter1);
 
         loadAd();
@@ -317,6 +320,22 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         //close navigation drawer
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public void subscribeToTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic("sarcasm")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Success";
+                        if (!task.isSuccessful()) {
+                            msg = "Fail";
+                        }
+
+                        System.out.println("Subscribe: " + msg);
+                    }
+                });
     }
 
 

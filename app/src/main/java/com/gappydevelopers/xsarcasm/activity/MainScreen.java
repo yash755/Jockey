@@ -105,7 +105,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        if (!new Utils().check_connection(MainScreen.this)) {
+        if (new Utils().checkConnection(MainScreen.this)) {
             Utils.showSnackBar(mainScreenLayout, getString(R.string.internet_error));
         } else {
             initUI();
